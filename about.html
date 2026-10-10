@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About - Senior Citizen Helpline</title>
+
+<link rel="stylesheet" href="home.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="top-bar">
+
+        <h1 id="govTitle">Government of India</h1>
+
+        <div class="controls">
+
+            <!-- Language Switch -->
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+            </select>
+
+            <button onclick="increaseFont()">A+</button>
+
+            <button onclick="toggleDarkMode()" id="darkBtn">
+                Dark Mode
+            </button>
+
+            <button onclick="logout()" id="logoutBtn">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+    <nav>
+
+        <a href="home.html" id="navHome">Home</a>
+
+        <a href="about.html" id="navAbout">About</a>
+
+        <a href="home.html#services" id="navServices">
+            Services
+        </a>
+
+        <a href="contact.html" id="navContact">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <h2 id="aboutHeading">
+        About Senior Citizen Helpline
+    </h2>
+
+    <p id="aboutText">
+        Dedicated to the safety, dignity and well-being of senior citizens across India.
+    </p>
+
+</section>
+
+<section class="services">
+
+    <h2 id="missionHeading">Our Mission</h2>
+
+    <div class="cards">
+
+        <div class="card" id="card1">
+
+            To provide 24/7 emergency support for elderly citizens in distress.
+
+        </div>
+
+        <div class="card" id="card2">
+
+            To ensure access to medical, emotional and social assistance.
+
+        </div>
+
+        <div class="card" id="card3">
+
+            To promote awareness about senior citizen rights and welfare schemes.
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p id="footer1">
+        National Senior Citizen Helpline | Toll Free: 14567
+    </p>
+
+    <p id="footer2">
+        Email: support@seniorhelp.gov.in
+    </p>
+
+</footer>
+
+<script>
+
+/* Protect Page */
+window.onload = function () {
+
+    const isLoggedIn =
+    localStorage.getItem("isLoggedIn");
+
+    if (!isLoggedIn) {
+
+        window.location.href = "login.html";
+    }
+
+    const savedLang =
+    localStorage.getItem("language");
+
+    if(savedLang){
+
+        document.getElementById("languageSelect").value =
+        savedLang;
+
+        changeLanguage();
+    }
+
+};
+
+/* Accessibility */
+function increaseFont() {
+
+    document.body.classList.toggle("large-text");
+}
+
+/* Dark Mode */
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+}
+
+/* Logout */
+function logout() {
+
+    localStorage.removeItem("isLoggedIn");
+
+    localStorage.removeItem("user");
+
+    window.location.href = "login.html";
+}
+
+/* Language Switch */
+function changeLanguage(){
+
+    const lang =
+    document.getElementById("languageSelect").value;
+
+    localStorage.setItem("language", lang);
+
+    if(lang === "hi"){
+
+        document.getElementById("govTitle").innerText =
+        "भारत सरकार";
+
+        document.getElementById("navHome").innerText =
+        "होम";
+
+        document.getElementById("navAbout").innerText =
+        "हमारे बारे में";
+
+        document.getElementById("navServices").innerText =
+        "सेवाएँ";
+
+        document.getElementById("navContact").innerText =
+        "संपर्क करें";
+
+        document.getElementById("aboutHeading").innerText =
+        "वरिष्ठ नागरिक हेल्पलाइन के बारे में";
+
+        document.getElementById("aboutText").innerText =
+        "भारत भर के वरिष्ठ नागरिकों की सुरक्षा, सम्मान और कल्याण के लिए समर्पित।";
+
+        document.getElementById("missionHeading").innerText =
+        "हमारा उद्देश्य";
+
+        document.getElementById("card1").innerText =
+        "जरूरतमंद वरिष्ठ नागरिकों के लिए 24/7 आपातकालीन सहायता प्रदान करना।";
+
+        document.getElementById("card2").innerText =
+        "चिकित्सा, भावनात्मक और सामाजिक सहायता उपलब्ध कराना।";
+
+        document.getElementById("card3").innerText =
+        "वरिष्ठ नागरिक अधिकारों और कल्याण योजनाओं के बारे में जागरूकता बढ़ाना।";
+
+        document.getElementById("footer1").innerText =
+        "राष्ट्रीय वरिष्ठ नागरिक हेल्पलाइन | टोल फ्री: 14567";
+
+        document.getElementById("footer2").innerText =
+        "ईमेल: support@seniorhelp.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "डार्क मोड";
+
+        document.getElementById("logoutBtn").innerText =
+        "लॉगआउट";
+    }
+
+    else{
+
+        document.getElementById("govTitle").innerText =
+        "Government of India";
+
+        document.getElementById("navHome").innerText =
+        "Home";
+
+        document.getElementById("navAbout").innerText =
+        "About";
+
+        document.getElementById("navServices").innerText =
+        "Services";
+
+        document.getElementById("navContact").innerText =
+        "Contact";
+
+        document.getElementById("aboutHeading").innerText =
+        "About Senior Citizen Helpline";
+
+        document.getElementById("aboutText").innerText =
+        "Dedicated to the safety, dignity and well-being of senior citizens across India.";
+
+        document.getElementById("missionHeading").innerText =
+        "Our Mission";
+
+        document.getElementById("card1").innerText =
+        "To provide 24/7 emergency support for elderly citizens in distress.";
+
+        document.getElementById("card2").innerText =
+        "To ensure access to medical, emotional and social assistance.";
+
+        document.getElementById("card3").innerText =
+        "To promote awareness about senior citizen rights and welfare schemes.";
+
+        document.getElementById("footer1").innerText =
+        "National Senior Citizen Helpline | Toll Free: 14567";
+
+        document.getElementById("footer2").innerText =
+        "Email: support@seniorhelp.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "Dark Mode";
+
+        document.getElementById("logoutBtn").innerText =
+        "Logout";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

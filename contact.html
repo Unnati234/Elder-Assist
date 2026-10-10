@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Contact Us - Senior Citizen Helpline</title>
+
+<link rel="stylesheet" href="home.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="top-bar">
+
+        <h1 id="govTitle">
+            Government of India
+        </h1>
+
+        <div class="controls">
+
+            <!-- Language Switch -->
+            <select id="languageSelect"
+            onchange="changeLanguage()">
+
+                <option value="en">English</option>
+
+                <option value="hi">हिन्दी</option>
+
+            </select>
+
+            <button onclick="increaseFont()">
+                A+
+            </button>
+
+            <button onclick="toggleDarkMode()"
+            id="darkBtn">
+
+                Dark Mode
+
+            </button>
+
+            <button onclick="logout()"
+            id="logoutBtn">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <nav>
+
+        <a href="home.html"
+        id="navHome">
+
+            Home
+
+        </a>
+
+        <a href="about.html"
+        id="navAbout">
+
+            About
+
+        </a>
+
+        <a href="home.html#services"
+        id="navServices">
+
+            Services
+
+        </a>
+
+        <a href="contact.html"
+        id="navContact">
+
+            Contact
+
+        </a>
+
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <h2 id="contactHeading">
+        Contact Us
+    </h2>
+
+    <p id="contactText">
+        We are here to assist you 24/7.
+    </p>
+
+</section>
+
+<section class="services">
+
+    <h2 id="messageHeading">
+        Send Us a Message
+    </h2>
+
+    <div class="cards">
+
+        <div class="card"
+        style="width:400px;">
+
+            <form id="contactForm">
+
+                <input type="text"
+                id="name"
+                placeholder="Your Name"
+                required
+                style="width:100%; padding:8px; margin-bottom:10px;">
+
+                <input type="email"
+                id="email"
+                placeholder="Your Email"
+                required
+                style="width:100%; padding:8px; margin-bottom:10px;">
+
+                <textarea id="message"
+                placeholder="Your Message"
+                required
+                style="width:100%; padding:8px; margin-bottom:10px;"></textarea>
+
+                <button type="submit"
+                class="primary-btn"
+                id="submitBtn">
+
+                    Submit
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p id="footer1">
+        National Senior Citizen Helpline | Toll Free: 14567
+    </p>
+
+    <p id="footer2">
+        Email: support@seniorhelp.gov.in
+    </p>
+
+</footer>
+
+<script>
+
+/* Protect Page */
+window.onload = function () {
+
+    const isLoggedIn =
+    localStorage.getItem("isLoggedIn");
+
+    if (!isLoggedIn) {
+
+        window.location.href = "login.html";
+    }
+
+    const savedLang =
+    localStorage.getItem("language");
+
+    if(savedLang){
+
+        document.getElementById("languageSelect").value =
+        savedLang;
+
+        changeLanguage();
+    }
+
+};
+
+/* Accessibility */
+function increaseFont() {
+
+    document.body.classList.toggle("large-text");
+}
+
+/* Dark Mode */
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+}
+
+/* Logout */
+function logout() {
+
+    localStorage.removeItem("isLoggedIn");
+
+    localStorage.removeItem("user");
+
+    window.location.href = "login.html";
+}
+
+/* Contact Form */
+document.getElementById("contactForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name =
+    document.getElementById("name").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const message =
+    document.getElementById("message").value;
+
+    fetch("http://localhost:3000/contact", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            name: name,
+            email: email,
+            message: message
+
+        })
+
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+
+        alert(data);
+
+        document.getElementById("contactForm").reset();
+
+    })
+
+    .catch(error => {
+
+        alert("Error connecting to server.");
+
+        console.error(error);
+
+    });
+
+});
+
+/* Language Switch */
+function changeLanguage(){
+
+    const lang =
+    document.getElementById("languageSelect").value;
+
+    localStorage.setItem("language", lang);
+
+    if(lang === "hi"){
+
+        document.getElementById("govTitle").innerText =
+        "भारत सरकार";
+
+        document.getElementById("navHome").innerText =
+        "होम";
+
+        document.getElementById("navAbout").innerText =
+        "हमारे बारे में";
+
+        document.getElementById("navServices").innerText =
+        "सेवाएँ";
+
+        document.getElementById("navContact").innerText =
+        "संपर्क करें";
+
+        document.getElementById("contactHeading").innerText =
+        "संपर्क करें";
+
+        document.getElementById("contactText").innerText =
+        "हम आपकी सहायता के लिए 24/7 उपलब्ध हैं।";
+
+        document.getElementById("messageHeading").innerText =
+        "हमें संदेश भेजें";
+
+        document.getElementById("name").placeholder =
+        "आपका नाम";
+
+        document.getElementById("email").placeholder =
+        "आपका ईमेल";
+
+        document.getElementById("message").placeholder =
+        "आपका संदेश";
+
+        document.getElementById("submitBtn").innerText =
+        "जमा करें";
+
+        document.getElementById("footer1").innerText =
+        "राष्ट्रीय वरिष्ठ नागरिक हेल्पलाइन | टोल फ्री: 14567";
+
+        document.getElementById("footer2").innerText =
+        "ईमेल: support@seniorhelp.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "डार्क मोड";
+
+        document.getElementById("logoutBtn").innerText =
+        "लॉगआउट";
+    }
+
+    else{
+
+        document.getElementById("govTitle").innerText =
+        "Government of India";
+
+        document.getElementById("navHome").innerText =
+        "Home";
+
+        document.getElementById("navAbout").innerText =
+        "About";
+
+        document.getElementById("navServices").innerText =
+        "Services";
+
+        document.getElementById("navContact").innerText =
+        "Contact";
+
+        document.getElementById("contactHeading").innerText =
+        "Contact Us";
+
+        document.getElementById("contactText").innerText =
+        "We are here to assist you 24/7.";
+
+        document.getElementById("messageHeading").innerText =
+        "Send Us a Message";
+
+        document.getElementById("name").placeholder =
+        "Your Name";
+
+        document.getElementById("email").placeholder =
+        "Your Email";
+
+        document.getElementById("message").placeholder =
+        "Your Message";
+
+        document.getElementById("submitBtn").innerText =
+        "Submit";
+
+        document.getElementById("footer1").innerText =
+        "National Senior Citizen Helpline | Toll Free: 14567";
+
+        document.getElementById("footer2").innerText =
+        "Email: support@seniorhelp.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "Dark Mode";
+
+        document.getElementById("logoutBtn").innerText =
+        "Logout";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

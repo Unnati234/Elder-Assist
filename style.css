@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap');
+
+:root{
+  --accent-color: #4A90E2;     
+  --base-color: #ffffff;
+  --text-color: #1E3A5F;       
+  --input-color: #F2F7FC;      
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  font-family: Poppins,'Segoe UI', sans-serif;
+  font-size:14px;
+}
+
+/* FULL SCREEN BACKGROUND */
+body {
+  height: 100vh;
+  display: flex;
+
+  background:
+  linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+  url("helpinghands.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* GLASS SIGNUP PANEL */
+.wrapper{
+  height: 100vh;
+  width: max(40%,600px);
+  padding: 60px;
+
+  background: rgba(30, 58, 95, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* HEADING */
+h1{
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--base-color);
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+/* FORM */
+form{
+  width: min(400px,100%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* INPUT CONTAINER */
+.input-box{
+  width: 100%;
+  display: flex;
+}
+
+/* ICON LABEL */
+.input-box label{
+  height: 55px;
+  width:55px;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 12px 0 0 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  transition: 0.3s ease;
+}
+
+/* INPUT */
+.input-box input{
+  flex-grow: 1;
+  height: 55px;
+  padding: 1em;
+  font:inherit;
+  border-radius: 0 12px 12px 0;
+  border:none;
+  background-color: var(--input-color);
+  outline: none;
+  transition: 0.3s ease;
+}
+
+/* INPUT FOCUS EFFECT */
+.input-box input:focus{
+  background-color: white;
+  box-shadow: 0 0 0 3px var(--accent-color);
+}
+
+/* BUTTON */
+button{
+  margin-top: 25px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--accent-color);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* BUTTON HOVER */
+button:hover{
+  background-color: #3b7ac9;
+  transform: translateY(-2px);
+}
+
+/* ============================= */
+/* ERROR STATE STYLING */
+/* ============================= */
+
+.input-box.error label{
+  background-color: #e74c3c; /* red */
+}
+
+.input-box.error input{
+  background-color: #ffe6e6;
+  box-shadow: 0 0 0 3px #e74c3c;
+}

@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Citizen Helpline Portal</title>
+
+<link rel="stylesheet" href="home.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="top-bar">
+
+        <h1 id="govTitle">Government of India</h1>
+
+        <div class="controls">
+
+            <!-- Language Switch -->
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+            </select>
+
+            <button onclick="increaseFont()">A+</button>
+
+            <button onclick="toggleDarkMode()" id="darkBtn">
+                Dark Mode
+            </button>
+
+            <button onclick="logout()" id="logoutBtn">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+    <nav>
+
+        <a href="home.html" id="navHome">Home</a>
+
+        <a href="about.html" id="navAbout">About</a>
+
+        <a href="services.html" id="navServices">Services</a>
+
+        <a href="contact.html" id="navContact">Contact</a>
+
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <h2 id="heroTitle">
+        Caring for Those Who Once Cared for Us
+    </h2>
+
+    <p id="heroText">
+        24/7 Emergency & Support Services for Senior Citizens
+    </p>
+
+    <button class="primary-btn"
+    onclick="window.location.href='services.html'"
+    id="assistBtn">
+
+        Request Assistance
+
+    </button>
+
+</section>
+
+<section class="services">
+
+    <h2 id="serviceHeading">Our Services</h2>
+
+    <div class="cards">
+
+        <div class="card" id="card1">
+            Emergency Assistance
+        </div>
+
+        <div class="card" id="card2">
+            Medical Support
+        </div>
+
+        <div class="card" id="card3">
+            Emotional Counseling
+        </div>
+
+        <div class="card" id="card4">
+            Home Visit Support
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p id="footer1">
+        National Senior Citizen Helpline | Toll Free: 14567
+    </p>
+
+    <p id="footer2">
+        Email: support@seniorhelp.gov.in
+    </p>
+
+</footer>
+
+<!-- Emergency Button -->
+<button class="emergency-btn" onclick="sendWhatsApp()">
+🚨
+</button>
+
+<!-- Chat -->
+<div class="chat-box" id="chatBox">
+
+    <div class="chat-header" onclick="toggleChat()" id="chatHeader">
+        Live Support
+    </div>
+
+    <div class="chat-body">
+
+        <div class="chat-messages" id="chatMessages">
+
+            <p class="bot" id="welcomeBot">
+                Hello! How can we help you?
+            </p>
+
+        </div>
+
+        <div class="chat-input">
+
+            <input type="text"
+            id="userInput"
+            placeholder="Type message...">
+
+            <button onclick="startVoice()">🎤</button>
+
+            <button onclick="sendMessage()" id="sendBtn">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* Login check */
+window.onload = function () {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user){
+        window.location.href = "login.html";
+    }
+
+    const savedLang = localStorage.getItem("language");
+
+    if(savedLang){
+
+        document.getElementById("languageSelect").value =
+        savedLang;
+
+        changeLanguage();
+    }
+
+};
+
+/* Accessibility */
+function increaseFont() {
+
+    document.body.classList.toggle("large-text");
+}
+
+/* Dark Mode */
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+}
+
+/* Logout */
+function logout(){
+
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+
+    window.location.href="login.html";
+}
+
+/* WhatsApp Emergency */
+function sendWhatsApp() {
+
+    const user =
+    JSON.parse(localStorage.getItem("user")) || {};
+
+    const message = `EMERGENCY ALERT:
+Name: ${user.firstname || "Unknown"}
+Email: ${user.email || "Unknown"}
+Needs immediate help`;
+
+    const phone = "919999999999";
+
+    window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+    "_blank");
+}
+
+/* Chat toggle */
+function toggleChat() {
+
+    document.getElementById("chatBox")
+    .classList.toggle("open");
+}
+
+/* Voice */
+function startVoice() {
+
+    const recognition =
+    new (window.SpeechRecognition ||
+    window.webkitSpeechRecognition)();
+
+    recognition.lang = "en-IN";
+
+    recognition.onresult = function(event) {
+
+        document.getElementById("userInput").value =
+        event.results[0][0].transcript;
+    };
+
+    recognition.start();
+}
+
+/* Chat */
+function sendMessage() {
+
+    const input =
+    document.getElementById("userInput");
+
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    const chat =
+    document.getElementById("chatMessages");
+
+    let userMsg = document.createElement("p");
+
+    userMsg.className = "user";
+    userMsg.innerText = message;
+
+    chat.appendChild(userMsg);
+
+    input.value = "";
+
+    setTimeout(() => {
+
+        let botMsg = document.createElement("p");
+
+        botMsg.className = "bot";
+
+        const msg = message.toLowerCase();
+
+        const lang =
+        document.getElementById("languageSelect").value;
+
+        if (msg.includes("pension")) {
+
+            botMsg.innerText =
+            lang === "hi"
+            ? "पेंशन योजनाओं के लिए सेवाएँ अनुभाग देखें।"
+            : "Check Services section for pension schemes.";
+        }
+
+        else if (
+            msg.includes("doctor") ||
+            msg.includes("health")
+        ) {
+
+            botMsg.innerText =
+            lang === "hi"
+            ? "कृपया चिकित्सा सहायता अनुभाग देखें।"
+            : "Please visit Healthcare Support in Services.";
+        }
+
+        else if (msg.includes("emergency")) {
+
+            botMsg.innerText =
+            lang === "hi"
+            ? "आपातकालीन सहायता के लिए लाल बटन दबाएँ।"
+            : "Press the emergency button or use WhatsApp alert.";
+        }
+
+        else if (
+            msg.includes("hi") ||
+            msg.includes("hello")
+        ) {
+
+            botMsg.innerText =
+            lang === "hi"
+            ? "नमस्ते! मैं आपकी कैसे सहायता कर सकता हूँ?"
+            : "Hello! How can I assist you?";
+        }
+
+        else {
+
+            botMsg.innerText =
+            lang === "hi"
+            ? "हमारी सहायता टीम जल्द ही आपसे संपर्क करेगी।"
+            : "Our support team will contact you soon.";
+        }
+
+        chat.appendChild(botMsg);
+
+        chat.scrollTop = chat.scrollHeight;
+
+    }, 600);
+}
+
+/* Language Switch */
+function changeLanguage(){
+
+    const lang =
+    document.getElementById("languageSelect").value;
+
+    localStorage.setItem("language", lang);
+
+    if(lang === "hi"){
+
+        document.getElementById("govTitle").innerText =
+        "भारत सरकार";
+
+        document.getElementById("navHome").innerText =
+        "होम";
+
+        document.getElementById("navAbout").innerText =
+        "हमारे बारे में";
+
+        document.getElementById("navServices").innerText =
+        "सेवाएँ";
+
+        document.getElementById("navContact").innerText =
+        "संपर्क करें";
+
+        document.getElementById("heroTitle").innerText =
+        "उन लोगों की देखभाल जो कभी हमारी देखभाल करते थे";
+
+        document.getElementById("heroText").innerText =
+        "वरिष्ठ नागरिकों के लिए 24/7 आपातकालीन और सहायता सेवाएँ";
+
+        document.getElementById("assistBtn").innerText =
+        "सहायता प्राप्त करें";
+
+        document.getElementById("serviceHeading").innerText =
+        "हमारी सेवाएँ";
+
+        document.getElementById("card1").innerText =
+        "आपातकालीन सहायता";
+
+        document.getElementById("card2").innerText =
+        "चिकित्सा सहायता";
+
+        document.getElementById("card3").innerText =
+        "भावनात्मक परामर्श";
+
+        document.getElementById("card4").innerText =
+        "घर पर सहायता";
+
+        document.getElementById("footer1").innerText =
+        "राष्ट्रीय वरिष्ठ नागरिक हेल्पलाइन | टोल फ्री: 14567";
+
+        document.getElementById("footer2").innerText =
+        "ईमेल: support@seniorhelp.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "डार्क मोड";
+
+        document.getElementById("logoutBtn").innerText =
+        "लॉगआउट";
+
+        document.getElementById("chatHeader").innerText =
+        "सहायता चैट";
+
+        document.getElementById("sendBtn").innerText =
+        "भेजें";
+
+        document.getElementById("userInput").placeholder =
+        "संदेश लिखें...";
+
+        document.getElementById("welcomeBot").innerText =
+        "नमस्ते! हम आपकी कैसे सहायता कर सकते हैं?";
+    }
+
+    else {
+
+        document.getElementById("govTitle").innerText =
+        "Government of India";
+
+        document.getElementById("navHome").innerText =
+        "Home";
+
+        document.getElementById("navAbout").innerText =
+        "About";
+
+        document.getElementById("navServices").innerText =
+        "Services";
+
+        document.getElementById("navContact").innerText =
+        "Contact";
+
+        document.getElementById("heroTitle").innerText =
+        "Caring for Those Who Once Cared for Us";
+
+        document.getElementById("heroText").innerText =
+        "24/7 Emergency & Support Services for Senior Citizens";
+
+        document.getElementById("assistBtn").innerText =
+        "Request Assistance";
+
+        document.getElementById("serviceHeading").innerText =
+        "Our Services";
+
+        document.getElementById("card1").innerText =
+        "Emergency Assistance";
+
+        document.getElementById("card2").innerText =
+        "Medical Support";
+
+        document.getElementById("card3").innerText =
+        "Emotional Counseling";
+
+        document.getElementById("card4").innerText =
+        "Home Visit Support";
+
+        document.getElementById("footer1").innerText =
+        "National Senior Citizen Helpline | Toll Free: 14567";
+
+        document.getElementById("footer2").innerText =
+        "Email: support@seniorhelp.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "Dark Mode";
+
+        document.getElementById("logoutBtn").innerText =
+        "Logout";
+
+        document.getElementById("chatHeader").innerText =
+        "Live Support";
+
+        document.getElementById("sendBtn").innerText =
+        "Send";
+
+        document.getElementById("userInput").placeholder =
+        "Type message...";
+
+        document.getElementById("welcomeBot").innerText =
+        "Hello! How can we help you?";
+    }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emotional Support Chat</title>
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+}
+
+.chat-container {
+    width: 400px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.chat-box {
+    height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.user {
+    background: #d1e7dd;
+    text-align: right;
+}
+
+.bot {
+    background: #e2e3e5;
+    text-align: left;
+}
+
+.input-area {
+    display: flex;
+    border-top: 1px solid #ccc;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+}
+
+button {
+    padding: 10px;
+    background: #014f86;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+
+const chatBox = document.getElementById("chatBox");
+
+function addMessage(text, sender) {
+    const div = document.createElement("div");
+    div.className = "message " + sender;
+    div.innerText = text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function botReply(msg) {
+    msg = msg.toLowerCase();
+
+    if (msg.includes("sad") || msg.includes("lonely")) {
+        return "I understand. You are not alone. Would you like to talk more about it?";
+    }
+    else if (msg.includes("help")) {
+        return "I am here to help you. You can tell me what is troubling you.";
+    }
+    else if (msg.includes("family")) {
+        return "Family relationships can be difficult sometimes. Would you like advice?";
+    }
+    else if (msg.includes("thank")) {
+        return "You are always welcome. I am here for you.";
+    }
+    else {
+        return "I am listening. Please tell me more.";
+    }
+}
+
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    addMessage(text, "user");
+
+    setTimeout(() => {
+        const reply = botReply(text);
+        addMessage(reply, "bot");
+    }, 500);
+
+    input.value = "";
+}
+
+// ENTER key support
+document.getElementById("userInput").addEventListener("keypress", function(e){
+    if (e.key === "Enter") sendMessage();
+});
+
+</script>
+
+</body>
+</html>

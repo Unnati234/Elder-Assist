@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Sign Up</h1>
+
+        <form id="signup-form" novalidate>
+
+            <div class="input-box">
+                <label for="firstname-input">
+                    <img src="person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" class="icon">
+                </label>
+                <input required type="text" id="firstname-input" placeholder="First Name">
+            </div>
+
+            <div class="input-box">
+                <label for="email-input">
+                    <span>@</span>
+                </label>
+                <input required type="email" id="email-input" placeholder="Email">
+            </div>
+
+            <div class="input-box">
+                <label for="password-input">
+                    <img src="lock_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" class="icon">
+                </label>
+                <input required type="password" id="password-input" placeholder="Password">
+            </div>
+
+            <div class="input-box">
+                <label for="repeatpassword-input">
+                    <img src="lock_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" class="icon">
+                </label>
+                <input required type="password" id="repeatpassword-input" placeholder="Repeat Password">
+            </div>
+
+            <!-- Changed to submit -->
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+<script>
+
+document.getElementById("signup-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let boxes = document.querySelectorAll(".input-box");
+    let firstname = document.getElementById("firstname-input").value.trim();
+    let email = document.getElementById("email-input").value.trim();
+    let password = document.getElementById("password-input").value;
+    let repeatPassword = document.getElementById("repeatpassword-input").value;
+
+    let hasError = false;
+
+    // Remove previous errors
+    boxes.forEach(box => box.classList.remove("error"));
+
+    // Empty field validation
+    boxes.forEach(box => {
+        let input = box.querySelector("input");
+        if (input.value.trim() === "") {
+            box.classList.add("error");
+            hasError = true;
+        }
+    });
+
+    // Password match validation
+    if (password !== repeatPassword) {
+        document.getElementById("password-input").parentElement.classList.add("error");
+        document.getElementById("repeatpassword-input").parentElement.classList.add("error");
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    // 🔥 BACKEND CONNECTION
+    fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            firstname: firstname,
+            email: email,
+            password: password
+        })
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert(data);
+        window.location.href = "login.html";
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error. Make sure backend is running.");
+    });
+
+});
+
+</script>
+</body>
+</html>

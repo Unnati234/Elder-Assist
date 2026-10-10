@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Services - Senior Citizen Helpline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="services.css">
+
+<style>
+
+.gov-banner{
+    background:#ffffff;
+    border-bottom:2px solid #ccc;
+    text-align:center;
+    padding:10px;
+    font-size:14px;
+}
+
+.helpline-strip{
+    background:#c62828;
+    color:white;
+    text-align:center;
+    padding:6px;
+    font-size:14px;
+}
+
+.service-card button{
+    margin-top:10px;
+    padding:8px 12px;
+    border:none;
+    background:#014f86;
+    color:white;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+.service-card small{
+    display:block;
+    margin-top:8px;
+    color:gray;
+    font-size:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Government Banner -->
+<div class="gov-banner">
+
+    <strong id="govTitle">
+        Government of India Initiative
+    </strong>
+
+    <br>
+
+    <span id="govText">
+        Ministry of Social Justice & Empowerment
+    </span>
+
+</div>
+
+<!-- Emergency Strip -->
+<div class="helpline-strip" id="helpStrip">
+
+    Emergency Helpline: 14567 | Cyber Fraud: 1930
+
+</div>
+
+<header>
+
+    <div class="top-bar">
+
+        <h1 id="mainHeading">
+            National Senior Citizen Helpline
+        </h1>
+
+        <div class="controls">
+
+            <!-- Language Switch -->
+            <select id="languageSelect"
+            onchange="changeLanguage()">
+
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+
+            </select>
+
+            <button onclick="increaseFont()">
+                A+
+            </button>
+
+            <button onclick="toggleDarkMode()"
+            id="darkBtn">
+
+                Dark Mode
+
+            </button>
+
+            <button onclick="logout()"
+            id="logoutBtn">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <nav>
+
+        <a href="home.html" id="navHome">
+            Home
+        </a>
+
+        <a href="about.html" id="navAbout">
+            About
+        </a>
+
+        <a href="services.html"
+        class="active"
+        id="navServices">
+
+            Services
+
+        </a>
+
+        <a href="contact.html" id="navContact">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <h2 id="heroHeading">
+        Our Services
+    </h2>
+
+    <p id="heroText">
+        Comprehensive support for senior citizens across India
+    </p>
+
+</section>
+
+<section class="services-container">
+
+    <!-- Emergency -->
+    <div class="service-card">
+
+        <h3 id="card1Title">
+            Emergency Assistance
+        </h3>
+
+        <p id="card1Text">
+            24/7 immediate support for medical emergencies and urgent safety concerns.
+        </p>
+
+        <button onclick="handleEmergency(event)"
+        id="card1Btn">
+
+            Request Emergency Help
+
+        </button>
+
+        <small id="card1Small">
+            Official Emergency Service
+        </small>
+
+    </div>
+
+    <!-- Healthcare -->
+    <div class="service-card">
+
+        <h3 id="card2Title">
+            Healthcare Support
+        </h3>
+
+        <p id="card2Text">
+            Access tele-consultation and government healthcare services.
+        </p>
+
+        <button onclick="openLink(event,'https://esanjeevani.mohfw.gov.in/')"
+        id="card2Btn">
+
+            Open Health Portal
+
+        </button>
+
+        <small id="card2Small">
+            Ministry of Health Service
+        </small>
+
+    </div>
+
+    <!-- Legal -->
+    <div class="service-card">
+
+        <h3 id="card3Title">
+            Legal Aid
+        </h3>
+
+        <p id="card3Text">
+            Support for legal rights, disputes, and elder protection.
+        </p>
+
+        <button onclick="openLink(event,'https://nalsa.gov.in/')"
+        id="card3Btn">
+
+            Get Legal Help
+
+        </button>
+
+        <small id="card3Small">
+            Government Legal Authority
+        </small>
+
+    </div>
+
+    <!-- Pension -->
+    <div class="service-card"
+    onclick="window.open('https://services.india.gov.in/service/detail/indira-gandhi-old-age-pension','_blank')">
+
+        <h3 id="card4Title">
+            Pension & Government Schemes
+        </h3>
+
+        <p id="card4Text">
+            Access national pension schemes like Indira Gandhi National Old Age Pension Scheme and other benefits.
+        </p>
+
+        <button id="card4Btn">
+            View Government Schemes
+        </button>
+
+        <small id="card4Small">
+            Government Pension Schemes
+        </small>
+
+    </div>
+
+    <!-- Emotional -->
+    <div class="service-card">
+
+        <h3 id="card5Title">
+            Emotional & Mental Support
+        </h3>
+
+        <p id="card5Text">
+            Talk to an AI-based emotional support assistant.
+        </p>
+
+        <button onclick="openChatbot(event)"
+        id="card5Btn">
+
+            Talk to Support Bot
+
+        </button>
+
+        <small id="card5Small">
+            AI-based Emotional Assistance
+        </small>
+
+    </div>
+
+    <!-- Cyber -->
+    <div class="service-card">
+
+        <h3 id="card6Title">
+            Fraud & Cyber Crime Help
+        </h3>
+
+        <p id="card6Text">
+            Report cyber fraud and financial scams securely.
+        </p>
+
+        <button onclick="openLink(event,'https://cybercrime.gov.in/')"
+        id="card6Btn">
+
+            Report Cyber Crime
+
+        </button>
+
+        <small id="card6Small">
+            Government Cyber Crime Portal
+        </small>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p id="footer1">
+        Toll Free Helpline: 14567 | Available 24/7
+    </p>
+
+    <p id="footer2">
+        Email: support@seniorhelpline.gov.in
+    </p>
+
+</footer>
+
+<script>
+
+/* ================= PAGE PROTECTION ================= */
+
+window.onload = function(){
+
+    const isLoggedIn =
+    localStorage.getItem("isLoggedIn");
+
+    if(!isLoggedIn){
+
+        window.location.href = "login.html";
+    }
+
+    const savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    applyLanguage(savedLang);
+};
+
+/* ================= ACCESSIBILITY ================= */
+
+function increaseFont(){
+
+    document.body.classList.toggle("large-text");
+}
+
+/* ================= DARK MODE ================= */
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+}
+
+/* ================= LOGOUT ================= */
+
+function logout(){
+
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+
+    window.location.href = "login.html";
+}
+
+/* ================= SAFE LINKS ================= */
+
+function openLink(event, url){
+
+    event.stopPropagation();
+
+    window.open(url, "_blank");
+}
+
+function openChatbot(event){
+
+    event.stopPropagation();
+
+    window.location.href = "chatbot.html";
+}
+
+/* ================= EMERGENCY ================= */
+
+function handleEmergency(event){
+
+    event.stopPropagation();
+
+    const user =
+    JSON.parse(localStorage.getItem("user")) || {};
+
+    fetch("http://localhost:3000/log-emergency",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            user_email:
+            user.email || "unknown",
+
+            user_name:
+            user.firstname || "unknown",
+
+            page:"services.html",
+
+            note:
+            "Emergency assistance requested"
+        })
+
+    })
+
+    .then(res => res.json())
+
+    .then(() => {
+
+        alert("Emergency request sent successfully");
+
+    })
+
+    .catch(() => {
+
+        alert("Emergency request failed");
+
+    });
+
+}
+
+/* ================= LANGUAGE SWITCH ================= */
+
+function changeLanguage(){
+
+    const lang =
+    document.getElementById("languageSelect").value;
+
+    localStorage.setItem("language", lang);
+
+    applyLanguage(lang);
+}
+
+/* ================= APPLY LANGUAGE ================= */
+
+function applyLanguage(lang){
+
+    if(lang === "hi"){
+
+        document.getElementById("govTitle").innerText =
+        "भारत सरकार पहल";
+
+        document.getElementById("govText").innerText =
+        "सामाजिक न्याय और अधिकारिता मंत्रालय";
+
+        document.getElementById("helpStrip").innerText =
+        "आपातकालीन हेल्पलाइन: 14567 | साइबर धोखाधड़ी: 1930";
+
+        document.getElementById("mainHeading").innerText =
+        "राष्ट्रीय वरिष्ठ नागरिक हेल्पलाइन";
+
+        document.getElementById("navHome").innerText =
+        "होम";
+
+        document.getElementById("navAbout").innerText =
+        "हमारे बारे में";
+
+        document.getElementById("navServices").innerText =
+        "सेवाएँ";
+
+        document.getElementById("navContact").innerText =
+        "संपर्क करें";
+
+        document.getElementById("heroHeading").innerText =
+        "हमारी सेवाएँ";
+
+        document.getElementById("heroText").innerText =
+        "भारत भर के वरिष्ठ नागरिकों के लिए सहायता सेवाएँ";
+
+        document.getElementById("card1Title").innerText =
+        "आपातकालीन सहायता";
+
+        document.getElementById("card1Text").innerText =
+        "24/7 चिकित्सा और सुरक्षा सहायता।";
+
+        document.getElementById("card1Btn").innerText =
+        "आपातकालीन सहायता प्राप्त करें";
+
+        document.getElementById("card1Small").innerText =
+        "आधिकारिक आपातकालीन सेवा";
+
+        document.getElementById("card2Title").innerText =
+        "चिकित्सा सहायता";
+
+        document.getElementById("card2Text").innerText =
+        "सरकारी स्वास्थ्य सेवाओं तक पहुँच प्राप्त करें।";
+
+        document.getElementById("card2Btn").innerText =
+        "हेल्थ पोर्टल खोलें";
+
+        document.getElementById("card2Small").innerText =
+        "स्वास्थ्य मंत्रालय सेवा";
+
+        document.getElementById("card3Title").innerText =
+        "कानूनी सहायता";
+
+        document.getElementById("card3Text").innerText =
+        "कानूनी अधिकारों और सुरक्षा हेतु सहायता।";
+
+        document.getElementById("card3Btn").innerText =
+        "कानूनी सहायता प्राप्त करें";
+
+        document.getElementById("card3Small").innerText =
+        "सरकारी कानूनी प्राधिकरण";
+
+        document.getElementById("card4Title").innerText =
+        "पेंशन और सरकारी योजनाएँ";
+
+        document.getElementById("card4Text").innerText =
+        "सरकारी पेंशन योजनाओं और लाभों तक पहुँच।";
+
+        document.getElementById("card4Btn").innerText =
+        "सरकारी योजनाएँ देखें";
+
+        document.getElementById("card4Small").innerText =
+        "सरकारी पेंशन योजनाएँ";
+
+        document.getElementById("card5Title").innerText =
+        "भावनात्मक सहायता";
+
+        document.getElementById("card5Text").innerText =
+        "AI आधारित सहायता से बात करें।";
+
+        document.getElementById("card5Btn").innerText =
+        "सहायता बॉट से बात करें";
+
+        document.getElementById("card5Small").innerText =
+        "AI आधारित भावनात्मक सहायता";
+
+        document.getElementById("card6Title").innerText =
+        "साइबर अपराध सहायता";
+
+        document.getElementById("card6Text").innerText =
+        "साइबर धोखाधड़ी की रिपोर्ट करें।";
+
+        document.getElementById("card6Btn").innerText =
+        "साइबर अपराध रिपोर्ट करें";
+
+        document.getElementById("card6Small").innerText =
+        "सरकारी साइबर अपराध पोर्टल";
+
+        document.getElementById("footer1").innerText =
+        "टोल फ्री हेल्पलाइन: 14567 | 24/7 उपलब्ध";
+
+        document.getElementById("footer2").innerText =
+        "ईमेल: support@seniorhelpline.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "डार्क मोड";
+
+        document.getElementById("logoutBtn").innerText =
+        "लॉगआउट";
+    }
+
+    else{
+
+        document.getElementById("govTitle").innerText =
+        "Government of India Initiative";
+
+        document.getElementById("govText").innerText =
+        "Ministry of Social Justice & Empowerment";
+
+        document.getElementById("helpStrip").innerText =
+        "Emergency Helpline: 14567 | Cyber Fraud: 1930";
+
+        document.getElementById("mainHeading").innerText =
+        "National Senior Citizen Helpline";
+
+        document.getElementById("navHome").innerText =
+        "Home";
+
+        document.getElementById("navAbout").innerText =
+        "About";
+
+        document.getElementById("navServices").innerText =
+        "Services";
+
+        document.getElementById("navContact").innerText =
+        "Contact";
+
+        document.getElementById("heroHeading").innerText =
+        "Our Services";
+
+        document.getElementById("heroText").innerText =
+        "Comprehensive support for senior citizens across India";
+
+        document.getElementById("card1Title").innerText =
+        "Emergency Assistance";
+
+        document.getElementById("card1Text").innerText =
+        "24/7 immediate support for medical emergencies and urgent safety concerns.";
+
+        document.getElementById("card1Btn").innerText =
+        "Request Emergency Help";
+
+        document.getElementById("card1Small").innerText =
+        "Official Emergency Service";
+
+        document.getElementById("card2Title").innerText =
+        "Healthcare Support";
+
+        document.getElementById("card2Text").innerText =
+        "Access tele-consultation and government healthcare services.";
+
+        document.getElementById("card2Btn").innerText =
+        "Open Health Portal";
+
+        document.getElementById("card2Small").innerText =
+        "Ministry of Health Service";
+
+        document.getElementById("card3Title").innerText =
+        "Legal Aid";
+
+        document.getElementById("card3Text").innerText =
+        "Support for legal rights, disputes, and elder protection.";
+
+        document.getElementById("card3Btn").innerText =
+        "Get Legal Help";
+
+        document.getElementById("card3Small").innerText =
+        "Government Legal Authority";
+
+        document.getElementById("card4Title").innerText =
+        "Pension & Government Schemes";
+
+        document.getElementById("card4Text").innerText =
+        "Access national pension schemes like Indira Gandhi National Old Age Pension Scheme and other benefits.";
+
+        document.getElementById("card4Btn").innerText =
+        "View Government Schemes";
+
+        document.getElementById("card4Small").innerText =
+        "Government Pension Schemes";
+
+        document.getElementById("card5Title").innerText =
+        "Emotional & Mental Support";
+
+        document.getElementById("card5Text").innerText =
+        "Talk to an AI-based emotional support assistant.";
+
+        document.getElementById("card5Btn").innerText =
+        "Talk to Support Bot";
+
+        document.getElementById("card5Small").innerText =
+        "AI-based Emotional Assistance";
+
+        document.getElementById("card6Title").innerText =
+        "Fraud & Cyber Crime Help";
+
+        document.getElementById("card6Text").innerText =
+        "Report cyber fraud and financial scams securely.";
+
+        document.getElementById("card6Btn").innerText =
+        "Report Cyber Crime";
+
+        document.getElementById("card6Small").innerText =
+        "Government Cyber Crime Portal";
+
+        document.getElementById("footer1").innerText =
+        "Toll Free Helpline: 14567 | Available 24/7";
+
+        document.getElementById("footer2").innerText =
+        "Email: support@seniorhelpline.gov.in";
+
+        document.getElementById("darkBtn").innerText =
+        "Dark Mode";
+
+        document.getElementById("logoutBtn").innerText =
+        "Logout";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+

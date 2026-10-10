@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - Senior Helpline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home.css">
+
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    tr:hover { background: #eef3ff; }
+
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-sm { padding: 8px 10px; border: none; cursor: pointer; }
+    .btn-danger { background: #d9534f; color: #fff; }
+    .btn-success { background: #5cb85c; color: #fff; }
+
+    textarea.replyBox { width: 100%; min-height: 70px; padding: 8px; }
+
+    .dark-mode { background: #121212; color: #fff; }
+    .dark-mode nav { background: #000; }
+    .dark-mode nav a { color: #fff; }
+    .dark-mode .card { background: #1e1e1e; color: #fff; }
+    .dark-mode td { border-bottom: 1px solid #333; }
+    .dark-mode tr:hover { background: #2a2a2a; }
+    .dark-mode .controls button { background: #222; color: #fff; border: 1px solid #444; }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="top-bar">
+    <h1>Senior Citizen Helpline - Admin Panel</h1>
+    <div class="controls">
+      <button onclick="increaseText()">A+</button>
+      <button onclick="decreaseText()">A-</button>
+      <button onclick="toggleDarkMode()">Dark Mode</button>
+      <button onclick="downloadUsersCSV()">Download Users CSV</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="home.html">Home</a>
+  <a href="admin.html">Admin Dashboard</a>
+</nav>
+
+<section class="services">
+  <h2>Registered Users</h2>
+  <div class="card">
+    <table id="usersTable">
+      <tr style="background:#004080;color:white;">
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </table>
+  </div>
+
+  <h2 style="margin-top:40px;">Contact Messages</h2>
+  <div class="card">
+    <table id="contactsTable">
+      <tr style="background:#004080;color:white;">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Status</th>
+        <th>Reply</th>
+        <th>Action</th>
+      </tr>
+    </table>
+  </div>
+
+  <h2 style="margin-top:40px;">Emergency Requests</h2>
+  <div class="card">
+    <table id="emergencyTable">
+      <tr style="background:#004080;color:white;">
+        <th>ID</th>
+        <th>User</th>
+        <th>Email</th>
+        <th>Timestamp</th>
+        <th>Page</th>
+        <th>Note</th>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  © 2026 Senior Citizen Helpline Portal | Government Initiative
+</footer>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user || user.role !== "admin") {
+  alert("Access Denied! Admins Only.");
+  window.location.href = "login.html";
+}
+
+// A+ / A-
+let fontSize = 16;
+function applyFontSize() {
+  document.documentElement.style.fontSize = fontSize + "px";
+}
+function increaseText() {
+  if (fontSize < 22) {
+    fontSize += 2;
+    applyFontSize();
+  }
+}
+function decreaseText() {
+  if (fontSize > 12) {
+    fontSize -= 2;
+    applyFontSize();
+  }
+}
+
+// Dark Mode
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
+
+// Logout
+function logout() {
+  localStorage.removeItem("user");
+  localStorage.removeItem("isLoggedIn");
+  window.location.href = "login.html";
+}
+
+// Load users
+function loadUsers() {
+  fetch("http://localhost:3000/users", {
+    headers: { role: user.role }
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.message || "Failed to load users");
+      return data;
+    })
+    .then((rows) => {
+      const table = document.getElementById("usersTable");
+      table.innerHTML = `
+        <tr style="background:#004080;color:white;">
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      `;
+
+      rows.forEach((u) => {
+        table.innerHTML += `
+          <tr>
+            <td>${u.id}</td>
+            <td>${u.firstname || ""}</td>
+            <td>${u.email || ""}</td>
+            <td>${u.role || ""}</td>
+            <td>
+              <div class="actions">
+                <button class="btn-sm btn-danger" onclick="deleteUser(${u.id})">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err.message || "Unable to load users");
+    });
+}
+
+// Delete user
+function deleteUser(id) {
+  if (!confirm("Delete this user?")) return;
+
+  fetch(`http://localhost:3000/users/${id}`, {
+    method: "DELETE",
+    headers: { role: user.role }
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.message || "Delete failed");
+      return data;
+    })
+    .then((data) => {
+      alert(data.message || "User deleted successfully");
+      loadUsers();
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err.message || "Delete failed");
+    });
+}
+
+// Load contacts
+function loadContacts() {
+  fetch("http://localhost:3000/contacts", {
+    headers: { role: user.role }
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.message || "Failed to load contacts");
+      return data;
+    })
+    .then((rows) => {
+      const table = document.getElementById("contactsTable");
+      table.innerHTML = `
+        <tr style="background:#004080;color:white;">
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Status</th>
+          <th>Reply</th>
+          <th>Action</th>
+        </tr>
+      `;
+
+      rows.forEach((c) => {
+        table.innerHTML += `
+          <tr>
+            <td>${c.id}</td>
+            <td>${c.name || ""}</td>
+            <td>${c.email || ""}</td>
+            <td>${(c.message || "").replaceAll("<", "&lt;")}</td>
+            <td>${c.status || "open"}</td>
+            <td>
+              <textarea class="replyBox" id="reply-${c.id}" placeholder="Type reply...">${c.reply || ""}</textarea>
+            </td>
+            <td>
+              <div class="actions">
+                <button class="btn-sm btn-success" onclick="saveReply(${c.id})">Save Reply</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err.message || "Unable to load contacts");
+    });
+}
+
+// Save reply
+function saveReply(id) {
+  const reply = document.getElementById(`reply-${id}`).value.trim();
+
+  if (!reply) {
+    alert("Please write a reply first.");
+    return;
+  }
+
+  fetch(`http://localhost:3000/contacts/${id}/reply`, {
+    method: "POST",
+    headers: {
+      role: user.role,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ reply })
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.message || "Reply failed");
+      return data;
+    })
+    .then((data) => {
+      alert(data.message || "Reply saved");
+      loadContacts();
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err.message || "Reply failed");
+    });
+}
+
+// Download CSV
+function downloadUsersCSV() {
+  fetch("http://localhost:3000/users.csv", {
+    headers: { role: user.role }
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("CSV download failed");
+      return res.blob();
+    })
+    .then((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "users.csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err.message || "CSV download failed");
+    });
+}
+
+// Load emergencies
+function loadEmergencies() {
+  fetch("http://localhost:3000/emergencies", {
+    headers: { role: user.role }
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.message || "Failed to load emergencies");
+      return data;
+    })
+    .then((rows) => {
+      const table = document.getElementById("emergencyTable");
+      table.innerHTML = `
+        <tr style="background:#004080;color:white;">
+          <th>ID</th>
+          <th>User</th>
+          <th>Email</th>
+          <th>Timestamp</th>
+          <th>Page</th>
+          <th>Note</th>
+        </tr>
+      `;
+
+      rows.forEach((e) => {
+        table.innerHTML += `
+          <tr>
+            <td>${e.id}</td>
+            <td>${e.user_name || ""}</td>
+            <td>${e.user_email || ""}</td>
+            <td>${e.timestamp || ""}</td>
+            <td>${e.page || ""}</td>
+            <td>${e.note || ""}</td>
+          </tr>
+        `;
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err.message || "Unable to load emergencies");
+    });
+}
+
+// Init
+loadUsers();
+loadContacts();
+loadEmergencies();
+</script>
+</body>
+</html>
