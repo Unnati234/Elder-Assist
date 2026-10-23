@@ -113,8 +113,3 @@ elder-assist/
 
 **Unnati**
 MCA student, BVICAM, New Delhi
-[GitHub link] | [LinkedIn link]
-
-## License
-
-[Add a license, e.g. MIT, or remove this section.]
