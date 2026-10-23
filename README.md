@@ -103,10 +103,6 @@ elder-assist/
 3. Emergency requests trigger a WhatsApp alert.
 4. Admins log in to manage users and services and export data as CSV.
 
-## Screenshots
-
-[Add 2-3 screenshots here, e.g. `![Home page](screenshots/home.png)`]
-
 ## Future Improvements
 
 - [e.g. mobile app or fully responsive layout]
