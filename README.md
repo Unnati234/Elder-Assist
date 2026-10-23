@@ -1,34 +1,39 @@
-Elder Assist
+# Elder Assist
 
 A web platform that brings essential support services together for senior citizens: emergency help, healthcare, legal and pension assistance, live support, and an emotional support chatbot, all in one accessible place.
 
 Built with HTML, CSS, JavaScript, Node.js and MySQL.
 
-Features
-For senior citizens
+## Features
 
-Sign up and log in
-Emergency requests with WhatsApp emergency alerts
-Healthcare services
-Legal and pension services
-Live support
-Emotional support chatbot
-Contact features
-Accessibility features for easier use
+**For senior citizens**
+- Sign up and log in
+- Emergency requests with WhatsApp emergency alerts
+- Healthcare services
+- Legal and pension services
+- Live support
+- Emotional support chatbot
+- Contact features
+- Accessibility features for easier use
 
-For administrators
-Admin management of users, requests and services
-CSV export of data
-Tech Stack
-Layer	Technology
-Frontend	HTML, CSS, JavaScript
-Backend	Node.js [, Express]
-Database	MySQL
-Version control	Git
-Project Structure
+**For administrators**
+- Admin management of users, requests and services
+- CSV export of data
 
-Update this to match your actual folders.
+## Tech Stack
 
+| Layer           | Technology            |
+|-----------------|-----------------------|
+| Frontend        | HTML, CSS, JavaScript |
+| Backend         | Node.js [, Express]   |
+| Database        | MySQL                 |
+| Version control | Git                   |
+
+## Project Structure
+
+> Update this to match your actual folders.
+
+```
 elder-assist/
 ├── [public/]        # Static files (CSS, JS, images)
 ├── [views/]         # Frontend pages
@@ -37,49 +42,83 @@ elder-assist/
 ├── [server.js]      # Application entry point
 ├── package.json
 └── README.md
+```
 
-Getting Started
-Prerequisites
-Node.js (v16 or later)
-MySQL (v8 or later)
-Git
+## Getting Started
 
-Installation
-Clone the repository:
-bash
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16 or later)
+- [MySQL](https://www.mysql.com/) (v8 or later)
+- Git
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
    git clone [your-repo-url]
    cd elder-assist
-Install dependencies:
-bash
+   ```
+
+2. Install dependencies:
+
+   ```bash
    npm install
-Create the database and import the schema:
-sql
+   ```
+
+3. Create the database and import the schema:
+
+   ```sql
    CREATE DATABASE elder_assist;
-bash
+   ```
+
+   ```bash
    mysql -u your_username -p elder_assist < [schema.sql]
-Create a .env file in the project root:
+   ```
+
+4. Create a `.env` file in the project root:
+
+   ```
    DB_HOST=localhost
    DB_USER=your_username
    DB_PASSWORD=your_password
    DB_NAME=elder_assist
    PORT=3000
    [WHATSAPP_API_KEY=your_key]
-Start the server:
-bash
+   ```
+
+5. Start the server:
+
+   ```bash
    node [server.js]
-Open http://localhost:3000 in your browser.
+   ```
 
-Usage
-A senior citizen signs up and logs in.
-From the dashboard, they can raise an emergency request, browse healthcare, legal and pension services, talk to live support, or chat with the emotional support chatbot.
-Emergency requests trigger a WhatsApp alert.
-Admins log in to manage users and services and export data as CSV.
+6. Open `http://localhost:3000` in your browser.
 
-Future Improvements
-[e.g. mobile app or fully responsive layout]
-[e.g. multi-language support]
-[e.g. appointment reminders]
-Author
+## Usage
 
-Unnati MCA student, BVICAM, New Delhi [GitHub link] | [LinkedIn link]
+1. A senior citizen signs up and logs in.
+2. From the dashboard, they can raise an emergency request, browse healthcare, legal and pension services, talk to live support, or chat with the emotional support chatbot.
+3. Emergency requests trigger a WhatsApp alert.
+4. Admins log in to manage users and services and export data as CSV.
 
+## Screenshots
+
+[Add 2-3 screenshots here, e.g. `![Home page](screenshots/home.png)`]
+
+## Future Improvements
+
+- [e.g. mobile app or fully responsive layout]
+- [e.g. multi-language support]
+- [e.g. appointment reminders]
+
+## Author
+
+**Unnati**
+MCA student, BVICAM, New Delhi
+[GitHub link] | [LinkedIn link]
+
+## License
+
+[Add a license, e.g. MIT, or remove this section.]
