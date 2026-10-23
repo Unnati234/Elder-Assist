@@ -25,7 +25,7 @@ Built with HTML, CSS, JavaScript, Node.js and MySQL.
 | Layer           | Technology            |
 |-----------------|-----------------------|
 | Frontend        | HTML, CSS, JavaScript |
-| Backend         | Node.js [, Express]   |
+| Backend         | Node.js               |
 | Database        | MySQL                 |
 | Version control | Git                   |
 
