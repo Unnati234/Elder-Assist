@@ -134,11 +134,26 @@ The WhatsApp emergency button is set up in the `sendWhatsApp()` function in `hom
 
 ## 📸 Screenshots
 
-![Login Page]<img width="1918" height="1020" alt="Login_Page" src="https://github.com/user-attachments/assets/ea886a05-7d87-4269-adc0-07c07ce0315b" />
-![Home page]<img width="1917" height="1017" alt="Home_Page" src="https://github.com/user-attachments/assets/7b6f4fe7-b5fa-40d8-8259-7ea86218be74" />
-![Services page1]<img width="1918" height="1020" alt="Services_Part1" src="https://github.com/user-attachments/assets/6bb476bc-acca-42f9-8685-cc5bf1a5fead" />
-![Services page2]<img width="1918" height="1015" alt="Services_Part2" src="https://github.com/user-attachments/assets/6d423d1e-2d35-45d7-9319-8138ba5e62b6" />
-![Admin dashboard]<img width="1916" height="927" alt="Admin_Panel_1" src="https://github.com/user-attachments/assets/b4e7dfb6-54a9-47f1-bf40-35144297d036" />
+#### Login Page
+<img width="1918" height="1020" alt="Login_Page" src="https://github.com/user-attachments/assets/ea886a05-7d87-4269-adc0-07c07ce0315b" />
+
+#### Home page
+<img width="1917" height="1017" alt="Home_Page" src="https://github.com/user-attachments/assets/7b6f4fe7-b5fa-40d8-8259-7ea86218be74" />
+
+#### Services page
+<img width="1918" height="1020" alt="Services_Part1" src="https://github.com/user-attachments/assets/6bb476bc-acca-42f9-8685-cc5bf1a5fead" />
+
+#### Admin dashboard
+<img width="1916" height="927" alt="Admin_Panel_1" src="https://github.com/user-attachments/assets/b4e7dfb6-54a9-47f1-bf40-35144297d036" />
+
+#### Live Support
+<img width="406" height="362" alt="Live_Support" src="https://github.com/user-attachments/assets/fc22fbef-2b9b-4c89-83c0-91c41f9896ff" />
+
+#### WhatsApp Emergency
+<img width="1918" height="1015" alt="whatsapp_Emergency" src="https://github.com/user-attachments/assets/30b006df-e908-4c2b-a892-ba57be1a1324" />
+
+#### Emotional bot
+<img width="637" height="588" alt="Emotional_bot" src="https://github.com/user-attachments/assets/e75108f1-caf4-4a93-92c8-2592eceb8f54" />
 
 ## Author
  
