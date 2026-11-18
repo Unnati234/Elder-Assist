@@ -131,7 +131,7 @@ The WhatsApp emergency button is set up in the `sendWhatsApp()` function in `hom
 - Add staffed live support, multi-language support and appointment reminders
 - Deploy the app online with a hosted MySQL database
 
-<!--
+
 ## 📸 Screenshots
 
 ![Login Page]<img width="1918" height="1020" alt="Login_Page" src="https://github.com/user-attachments/assets/ea886a05-7d87-4269-adc0-07c07ce0315b" />
