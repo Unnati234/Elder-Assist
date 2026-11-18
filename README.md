@@ -1,115 +1,138 @@
 # Elder Assist
-
-A web platform that brings essential support services together for senior citizens: emergency help, healthcare, legal and pension assistance, live support, and an emotional support chatbot, all in one accessible place.
-
-Built with HTML, CSS, JavaScript, Node.js and MySQL.
-
+ 
+A web platform that brings essential support services together for senior citizens: emergency help, healthcare, legal and pension information, a support chatbot, and a contact desk, all in one easy-to-use place. An admin dashboard lets staff manage users, reply to messages and review emergency requests.
+ 
+Built independently with HTML, CSS, JavaScript, Node.js (Express) and MySQL.
+ 
 ## Features
-
+ 
 **For senior citizens**
-- Sign up and log in
-- Emergency requests with WhatsApp emergency alerts
-- Healthcare services
-- Legal and pension services
-- Live support
-- Emotional support chatbot
-- Contact features
-- Accessibility features for easier use
-
+- Sign up and log in (passwords are hashed with bcrypt)
+- One-tap emergency button that opens a pre-filled WhatsApp alert with the user's name and email
+- Emergency requests from the services page are saved to the database for admins to see
+- Services page covering healthcare, legal and pension support, and urgent safety help
+- Emotional support chatbot that replies to common feelings and requests (keyword based)
+- Contact form whose messages are stored for admin replies
+- Live support page showing the helpline number (14567) while the support team is offline
+- Accessibility options: text size buttons and voice input
 **For administrators**
-- Admin management of users, requests and services
-- CSV export of data
-
+- View registered users and delete user accounts (admin accounts cannot be deleted)
+- Read contact messages and send replies
+- View a list of emergency requests, newest first
+- Export the user list as a CSV file
 ## Tech Stack
-
-| Layer           | Technology            |
-|-----------------|-----------------------|
-| Frontend        | HTML, CSS, JavaScript |
-| Backend         | Node.js               |
-| Database        | MySQL                 |
-| Version control | Git                   |
-
+ 
+| Layer           | Technology                                   |
+|-----------------|----------------------------------------------|
+| Frontend        | HTML, CSS, JavaScript                        |
+| Backend         | Node.js, Express 5                           |
+| Database        | MySQL (`mysql2`)                             |
+| Security        | bcrypt password hashing, CORS, dotenv config |
+| Version control | Git, GitHub                                  |
+ 
 ## Project Structure
-
-> Update this to match your actual folders.
-
+ 
 ```
-elder-assist/
-├── [public/]        # Static files (CSS, JS, images)
-├── [views/]         # Frontend pages
-├── [routes/]        # API routes
-├── [config/]        # Database configuration
-├── [server.js]      # Application entry point
-├── package.json
-└── README.md
+Elder-Assist/
+├── server.js          # Express API and MySQL connection
+├── home.html          # Home page, emergency button, chat box
+├── login.html         # Login page
+├── login_page.html    # Sign-up page
+├── services.html      # Healthcare, legal, pension and emergency services
+├── chatbot.html       # Emotional support chatbot
+├── livesupport.html   # Live support / helpline page
+├── contact.html       # Contact form
+├── about.html         # About page
+├── admin.html         # Admin dashboard
+├── home.css / services.css / style.css
+├── schema.sql         # Database tables
+├── .env.example       # Environment variable template
+└── package.json
 ```
-
+ 
 ## Getting Started
-
+ 
 ### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v16 or later)
+ 
+- [Node.js](https://nodejs.org/) (v18 or later)
 - [MySQL](https://www.mysql.com/) (v8 or later)
 - Git
-
 ### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone [your-repo-url]
-   cd elder-assist
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Create the database and import the schema:
-
-   ```sql
-   CREATE DATABASE elder_assist;
-   ```
-
-   ```bash
-   mysql -u your_username -p elder_assist < [schema.sql]
-   ```
-
-4. Create a `.env` file in the project root:
-
-   ```
-   DB_HOST=localhost
-   DB_USER=your_username
-   DB_PASSWORD=your_password
-   DB_NAME=elder_assist
-   PORT=3000
-   [WHATSAPP_API_KEY=your_key]
-   ```
-
-5. Start the server:
-
-   ```bash
-   node [server.js]
-   ```
-
-6. Open `http://localhost:3000` in your browser.
-
+ 
+1. Clone the repository and install dependencies:
+```bash
+git clone https://github.com/Unnati234/Elder-Assist.git
+cd Elder-Assist
+npm install
+```
+ 
+2. Create the database and tables:
+```bash
+mysql -u your_username -p -e "CREATE DATABASE elder_assist;"
+mysql -u your_username -p elder_assist < schema.sql
+```
+ 
+3. Copy `.env.example` to `.env` and fill in your MySQL details:
+```
+DB_HOST=localhost
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=elder_assist
+```
+ 
+4. Start the server:
+```bash
+node server.js
+```
+ 
+   The API runs on `http://localhost:3000`.
+ 
+5. Open `home.html` in your browser (for example with the VS Code Live Server extension). The pages call the API on port 3000.
+### Creating an admin account
+ 
+Sign up as a normal user, then promote the account in MySQL:
+ 
+```sql
+UPDATE users SET role = 'admin' WHERE email = 'your_email@example.com';
+```
+ 
+Logging in with that account opens the admin dashboard.
+ 
+### Emergency contact number
+ 
+The WhatsApp emergency button is set up in the `sendWhatsApp()` function in `home.html`. Change the phone number there (country code, no `+` or spaces) to the contact who should receive alerts.
+ 
+## API Overview
+ 
+| Method | Endpoint                | Access | Purpose                          |
+|--------|-------------------------|--------|----------------------------------|
+| POST   | `/register`             | Public | Create an account                |
+| POST   | `/login`                | Public | Log in                           |
+| POST   | `/contact`              | Public | Save a contact message           |
+| POST   | `/log-emergency`        | Public | Save an emergency request        |
+| GET    | `/users`                | Admin  | List users                       |
+| DELETE | `/users/:id`            | Admin  | Delete a user (not admins)       |
+| GET    | `/contacts`             | Admin  | List contact messages            |
+| POST   | `/contacts/:id/reply`   | Admin  | Reply to a contact message       |
+| GET    | `/emergencies`          | Admin  | List emergency requests          |
+| GET    | `/users.csv`            | Admin  | Download users as CSV            |
+ 
 ## Usage
-
+ 
 1. A senior citizen signs up and logs in.
-2. From the dashboard, they can raise an emergency request, browse healthcare, legal and pension services, talk to live support, or chat with the emotional support chatbot.
-3. Emergency requests trigger a WhatsApp alert.
-4. Admins log in to manage users and services and export data as CSV.
-
+2. From the home page they can press the emergency button to send a WhatsApp alert, browse services, chat with the support chatbot, or send a message through the contact page.
+3. Emergency requests raised from the services page are logged in the database.
+4. An admin logs in to manage users, answer messages, review emergencies and export users as CSV.
 ## Future Improvements
-
-- [e.g. mobile app or fully responsive layout]
-- [e.g. multi-language support]
-- [e.g. appointment reminders]
-
+ 
+- Replace the header-based admin check with server-side sessions or JWT authentication
+- Move the API address into a configuration value instead of `http://localhost:3000` in each page
+- Connect the support chatbot to a language model for richer replies
+- Add staffed live support, multi-language support and appointment reminders
+- Deploy the app online with a hosted MySQL database
 ## Author
-
+ 
 **Unnati**
-MCA student, BVICAM, New Delhi
+MCA student, Bharati Vidyapeeth's Institute of Computer Applications and Management (BVICAM), New Delhi
+[LinkedIn](https://www.linkedin.com/in/unnati-03g04/) | [GitHub](https://github.com/Unnati234)
+ 
