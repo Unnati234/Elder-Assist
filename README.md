@@ -130,6 +130,16 @@ The WhatsApp emergency button is set up in the `sendWhatsApp()` function in `hom
 - Connect the support chatbot to a language model for richer replies
 - Add staffed live support, multi-language support and appointment reminders
 - Deploy the app online with a hosted MySQL database
+
+<!--
+## 📸 Screenshots
+
+![Login Page]<img width="1918" height="1020" alt="Login_Page" src="https://github.com/user-attachments/assets/ea886a05-7d87-4269-adc0-07c07ce0315b" />
+![Home page]<img width="1917" height="1017" alt="Home_Page" src="https://github.com/user-attachments/assets/7b6f4fe7-b5fa-40d8-8259-7ea86218be74" />
+![Services page1]<img width="1918" height="1020" alt="Services_Part1" src="https://github.com/user-attachments/assets/6bb476bc-acca-42f9-8685-cc5bf1a5fead" />
+![Services page2]<img width="1918" height="1015" alt="Services_Part2" src="https://github.com/user-attachments/assets/6d423d1e-2d35-45d7-9319-8138ba5e62b6" />
+![Admin dashboard]<img width="1916" height="927" alt="Admin_Panel_1" src="https://github.com/user-attachments/assets/b4e7dfb6-54a9-47f1-bf40-35144297d036" />
+
 ## Author
  
 **Unnati**
